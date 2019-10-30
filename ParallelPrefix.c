@@ -6,7 +6,7 @@ struct Matrix2x2 ParallelPrefix(struct Matrix2x2 * M, int procs, int my_rank, in
     struct Matrix2x2 offset = *M;
 
     if(procs == 1)
-        return M;
+        return *M;
     
     int i;
     for(i = 0; i < log2f((float)procs); i++)
@@ -16,7 +16,7 @@ struct Matrix2x2 ParallelPrefix(struct Matrix2x2 * M, int procs, int my_rank, in
 
         MPI_Send(&offset.m[0][0], 4, MPI_INT, partner, 0, MPI_COMM_WORLD);
         
-        MPI_STATUS status;
+        MPI_Status status;
         struct Matrix2x2 offset_remote;
         MPI_Recv(&offset_remote.m[0][0], 4, MPI_INT, partner, 0, MPI_COMM_WORLD, &status);
 
