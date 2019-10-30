@@ -2,6 +2,7 @@
 #define MATRIX_OPERATOR_H
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct Matrix2x2
 {
@@ -12,6 +13,8 @@ struct Vector2
 {
     int v[2];
 };
+
+bool compareMatrices(struct Matrix2x2 * m1, struct Matrix2x2 * m2);
 
 struct Matrix2x2 MMmultiplyMod(struct Matrix2x2 * m1, struct Matrix2x2 * m2, int P);
 

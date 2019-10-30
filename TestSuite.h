@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "SerialRandomNumber.h"
 
-//bool TestMatrixOperator(struct IMatrix * m1, struct IMatrix * m2, int P);
+bool TestMatrixOperator(struct Matrix2x2 * m1, struct Matrix2x2 * m2, int P);
 
 bool TestBaselineVsSerialMatrix(int n, int seed, int A, int B, int P);
 
