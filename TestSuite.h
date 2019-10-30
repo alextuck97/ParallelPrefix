@@ -9,6 +9,8 @@
 
 bool TestBaselineVsSerialMatrix(int n, int seed, int A, int B, int P);
 
+bool TestBaselineVsOffsetMatrix(int n, int seed, int A, int B, int P);
+
 void RunTests();
 
 
