@@ -39,3 +39,22 @@ int * matrixBaseline(int n, int seed, int A, int B, int P)
 
     return result;
 }
+
+int * matrixBaselineOffset(int n, int seed, int P, struct Matrix2x2 offset)
+{
+    int * result = malloc(sizeof(int) * n);
+    
+    struct Vector2 prev_val;
+    prev_val.v[0] = seed;
+    prev_val.v[1] = 1;
+
+    int i = 0;
+    for(; i < n; i++)
+    {
+        prev_val = MVmultiplyMod(&prev_val, &offset, P);
+        result[i] = prev_val.v[0];
+    }
+
+    return result;
+
+}
