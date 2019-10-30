@@ -9,7 +9,7 @@ bool TestParallelPrefix(struct Matrix2x2 * m, int procs, int my_rank, int P)
     int i;
     for(i = 0; i < my_rank; i++)
     {
-        serial_result = MMmultiplyMod(&serial_result, m, P)
+        serial_result = MMmultiplyMod(&serial_result, m, P);
     }
 
     return compareMatrices(&serial_result, &my_offset);
