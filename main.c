@@ -26,19 +26,25 @@ int main(int argc,char *argv[])
     m.m[1][1] = 1;
     
     struct Matrix2x2 offset = m;
+    //offset.m[0][0] = 1;
+    //offset.m[1][0] = 0;
+    //offset.m[0][1] = 0;
+    //offset.m[1][1] = 1;
 
     int i;
     //Condition gives rank 0's offset to be m, while all other ranks are M^n/p
-    for(i = 0; i < rank*n/procs - (rank - 1)*n/procs - 1; i++)
+    if(rank != 0)
     {
-        offset = MMmultiplyMod(&offset, &m, P);
+        for(i = 0; i < n/procs - 1; i++)
+        {
+            offset = MMmultiplyMod(&offset, &m, P);
+        }
     }
-    
     offset = ParallelPrefix(&offset, procs, rank, P);
 
     struct Vector2 v;
     v.v[0] = seed;
-    v.v[1] = 0;
+    v.v[1] = 1;
 
     int * output = malloc(sizeof(int) * n/procs);
     for(i = 0; i < n / procs; i++)
@@ -56,17 +62,21 @@ int main(int argc,char *argv[])
 
     MPI_Finalize();
 
-    int * serial_output = serialBaseline(n, seed, A, B, P);
-    printf("Serial Results: \n");
-    for(i = 0; i < procs; i++)
+    if(rank == 0)
     {
-        printf("Rank %d: ", i);
-        int j;
-        for(j = 0; j < n / procs; j++)
+        int * serial_output = serialBaseline(n, seed, A, B, P);
+        printf("Serial Results: \n");
+        for(i = 0; i < procs; i++)
         {
-            printf("%d ", serial_output[i * n / procs + j]);
-        }
-        printf("\n");
-    } 
-    free(serial_output);
+            printf("Rank %d: ", i);
+            int j;
+            for(j = 0; j < n / procs; j++)
+            {
+                printf("%d ", serial_output[i * n / procs + j]);
+            }
+            printf("\n");
+        } 
+        free(serial_output);
+    }
+   
 }
