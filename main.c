@@ -4,13 +4,11 @@
 #include <sys/time.h>
 
 /****************
- * Five command line arguments 
+ * Four command line arguments 
  * Seed: seed of the random number generator
  * A: First parameter to the random number generator
  * B: Second parameter to the random number generator
  * P: Prime number for the random number generator
- * n: How many random numbers to generate. Make sure n
- *    is a multiple of the total number of processes
  * ************/
 
 int main(int argc,char *argv[])
@@ -89,12 +87,12 @@ int main(int argc,char *argv[])
             }
         
             gettimeofday(&t2, NULL);
-            time_sum += (t2.tv_sec-t1.tv_sec)*1000000 + (t2.tv_usec-t1.tv_usec)/1000000;
+            time_sum += (t2.tv_sec-t1.tv_sec)*1000000 + (t2.tv_usec-t1.tv_usec);
         
         }
         if(rank == 0)
         {
-            float time_avg = (float)time_sum / trials;
+            float time_avg = (float)time_sum / (float)trials;
             printf("%f ", time_avg);
         }
         
