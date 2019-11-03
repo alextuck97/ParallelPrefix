@@ -93,7 +93,7 @@ int main(int argc,char *argv[])
         if(rank == 0)
         {
             float time_avg = (float)time_sum / (float)trials;
-            printf("%f ", time_avg);
+            printf("%f,", time_avg);
         }
         
     }
